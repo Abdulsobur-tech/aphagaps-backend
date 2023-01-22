@@ -1,0 +1,37 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Attendee {
+    id         String       @id @default(uuid())
+    firstname  String       @db.VarChar(255)
+    lastname   String       @db.VarChar(255)
+    phone      String
+    email      String       @unique
+    password   String
+    createdAt  DateTime     @default(now())
+    Conference Conference[]
+}
+
+model Talk {
+    id          String       @id @default(uuid())
+    title       String
+    location    String
+    date        DateTime
+    describtion String
+    createdAt   DateTime     @default(now())
+    Conference  Conference[]
+}
+
+model Conference {
+    ticketId   String   @id @default(uuid())
+    attendee   Attendee @relation(fields: [attendeeId], references: [id])
+    attendeeId String
+    talk       Talk     @relation(fields: [talkId], references: [id])
+    talkId     String
+}
