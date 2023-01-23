@@ -35,6 +35,7 @@ var protect = function (req, res, next) {
     try {
         var user = jsonwebtoken_1["default"].verify(token, process.env.JWT_SECRET);
         req.user = user;
+        console.log(req.user);
         next();
     }
     catch (error) {

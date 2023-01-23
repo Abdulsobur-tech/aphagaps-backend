@@ -39,9 +39,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.conference = void 0;
+exports.registerAttendee = void 0;
 var db_1 = __importDefault(require("../db"));
-var conference = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var registerAttendee = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var validUser, registerAtendee, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -49,8 +49,8 @@ var conference = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 _a.trys.push([0, 3, , 4]);
                 return [4 /*yield*/, db_1["default"].conference.findFirst({
                         where: {
-                            attendeeId: req.user.id,
-                            talkId: req.params.id
+                            talkId: req.params.id,
+                            attendeeId: req.user
                         }
                     })];
             case 1:
@@ -60,13 +60,12 @@ var conference = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 }
                 return [4 /*yield*/, db_1["default"].conference.create({
                         data: {
-                            attendeeId: req.user.id,
-                            talkId: req.params.id
+                            talkId: req.params.id,
+                            attendeeId: req.user.id
                         }
                     })];
             case 2:
                 registerAtendee = _a.sent();
-                console.log(registerAtendee);
                 return [2 /*return*/, res.status(200).json(registerAtendee)];
             case 3:
                 error_1 = _a.sent();
@@ -76,5 +75,5 @@ var conference = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
-exports.conference = conference;
-//# sourceMappingURL=conference.js.map
+exports.registerAttendee = registerAttendee;
+//# sourceMappingURL=registeredAttendees.js.map
